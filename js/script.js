@@ -1,7 +1,7 @@
-const students = document.querySelector('.student-list')
 const studentItems = document.querySelectorAll('.student-item')
 const perPage = 10;
 const div = document.querySelector('.page');
+
 
 //divides list into pages
 const showPage = (list, page) => {
@@ -16,7 +16,7 @@ const showPage = (list, page) => {
    };
 };
 
-//add paginations links to page
+//add pagination links to page
 const appendPageLinks = list => {
    let totalPages = list.length / perPage;
    totalPages = Math.ceil(totalPages);
@@ -25,15 +25,15 @@ const appendPageLinks = list => {
    div.appendChild(links);
    const linksList = document.createElement('ul');
    links.appendChild(linksList);
+   let paginationLink;
    for (let i = 1; i <= totalPages; i ++) {
-      let paginationLink = document.createElement('li');
-      paginationLink.innerHTML= `<a>${i}</a>`;
+      paginationLink = document.createElement('li');
+      paginationLink.innerHTML = `<a>${i}</a>`;
       linksList.appendChild(paginationLink);
    };
+   paginationLink.addEventListener('click', showPage(list, parseInt(paginationLink.textContent)));
 };
 
 appendPageLinks(studentItems);
 
 
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
