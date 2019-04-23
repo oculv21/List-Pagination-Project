@@ -2,6 +2,7 @@ const studentItems = document.querySelectorAll('.student-item')
 const perPage = 10;
 const div = document.querySelector('.page');
 
+"use strict";
 
 //divides list into pages
 const showPage = (list, page) => {
@@ -15,6 +16,8 @@ const showPage = (list, page) => {
       };
    };
 };
+
+showPage(studentItems, 1);
 
 //add pagination links to page
 const appendPageLinks = list => {
@@ -30,8 +33,10 @@ const appendPageLinks = list => {
       paginationLink = document.createElement('li');
       paginationLink.innerHTML = `<a>${i}</a>`;
       linksList.appendChild(paginationLink);
+      paginationLink.addEventListener('click', () => {
+         showPage(list, i)
+      });
    };
-   paginationLink.addEventListener('click', showPage(list, parseInt(paginationLink.textContent)));
 };
 
 appendPageLinks(studentItems);
