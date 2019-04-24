@@ -38,7 +38,12 @@ const appendPageLinks = list => {
       linksList.appendChild(paginationLink);
       //add click event listener to links
       paginationLink.addEventListener('click', () => {
-         showPage(list, i)
+         for (let j = 0; j < totalPages; j ++) {
+            const links = linksList.querySelectorAll('a');
+            links[j].classList.remove('active');
+         };
+         event.target.className = 'active';
+         showPage(list, i);
       });
    };
 };
