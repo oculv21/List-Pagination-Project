@@ -21,18 +21,22 @@ showPage(studentItems, 1);
 
 //add pagination links to page
 const appendPageLinks = list => {
+   //calculate total pages
    let totalPages = list.length / perPage;
    totalPages = Math.ceil(totalPages);
+   //create pagination div and ul
    const links = document.createElement('div');
    links.className = 'pagination';
    div.appendChild(links);
    const linksList = document.createElement('ul');
    links.appendChild(linksList);
    let paginationLink;
+   //create each pagination link
    for (let i = 1; i <= totalPages; i ++) {
       paginationLink = document.createElement('li');
-      paginationLink.innerHTML = `<a>${i}</a>`;
+      paginationLink.innerHTML = `<a href="#">${i}</a>`;
       linksList.appendChild(paginationLink);
+      //add click event listener to links
       paginationLink.addEventListener('click', () => {
          showPage(list, i)
       });
