@@ -13,7 +13,7 @@ const showPage = (list, page) => {
    const endIndex = (page * perPage) - 1;
    for (let i = 0; i < list.length; i++) {
       if (i >= startIndex && i <= endIndex) {
-         list[i].style.display = "";
+         list[i].style.display = '';
       } else {
          list[i].style.display = 'none';
       };
@@ -63,25 +63,40 @@ const searchSubmit = document.createElement('button');
 searchSubmit.textContent = "Search";
 searchDiv.appendChild(searchBar);
 searchDiv.appendChild(searchSubmit);
+let searchResults = [];
 
 //search function 
 const searchList = (searchInput, list) => {
    console.log(searchInput.value);
    console.log(list);
-   for (let i = 0; i < list.length; i++) {
-      if (searchInput.value.length !== 0 && studentNames[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
-         list[i].style.display = "";
+   searchResults.length = 0;
+   for (let p = 0; p < list.length; p++) {
+      if (searchInput.value.length !== 0 && studentNames[p].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
+         searchResults.push(list[p]);
       } else {
-         list[i].style.display = "none";
+         list[p].style.display = 'none';
       };
+   };
+};
+
+const clearSearch = () => {
+   for (let k = 0; k < studentItems.length; k++) {
+      studentItems[k].style.display = '';
    };
 };
 
 //search field event listeners
 searchSubmit.addEventListener('click', (event) => {
    event.preventDefault();
+   clearSearch();
    searchList(searchBar, studentItems);
-   console.log('Submit button is functional.');
+   div.removeChild(document.querySelector('.pagination'));
+   showPage(searchResults, 1);
+   appendPageLinks(searchResults);
+});
+
+searchSubmit.addEventListener('keyup', () => {
+   searchList(searchBar, studentItems);
 });
 
 
