@@ -64,6 +64,7 @@ searchSubmit.textContent = "Search";
 searchDiv.appendChild(searchBar);
 searchDiv.appendChild(searchSubmit);
 let searchResults = [];
+let noResults;
 
 //search function 
 const searchList = (searchInput, list) => {
@@ -77,6 +78,11 @@ const searchList = (searchInput, list) => {
          list[p].style.display = 'none';
       };
    };
+   if (searchResults.length === 0) {
+      noResults = document.createElement('p');
+      noResults.innerHTML = 'Sorry, there are no matches.';
+      div.appendChild(noResults);
+   }; 
 };
 
 const clearSearch = () => {
@@ -96,10 +102,9 @@ searchSubmit.addEventListener('click', (event) => {
 });
 
 searchSubmit.addEventListener('keyup', () => {
+   clearSearch();
    searchList(searchBar, studentItems);
+   div.removeChild(document.querySelector('.pagination'));
+   showPage(searchResults, 1);
+   appendPageLinks(searchResults);
 });
-
-
-
-
-
