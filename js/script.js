@@ -3,6 +3,7 @@ const studentList = document.querySelector('.student-list');
 const perPage = 10;
 const div = document.querySelector('.page');
 const header = document.querySelector('.page-header');
+const studentNames = document.querySelectorAll('h3');
 
 "use strict";
 
@@ -52,18 +53,38 @@ showPage(studentItems, 1);
 appendPageLinks(studentItems);
 
 //create and append search bar
-const createSearchField = () => {
-   const searchDiv = document.createElement('div');
-   searchDiv.className = 'student-search';
-   header.appendChild(searchDiv);
-   const searchBar = document.createElement('input');
-   searchBar.setAttribute('placeholder', 'Search for students...');
-   const searchSubmit = document.createElement('button');
-   searchSubmit.textContent = "Search";
-   searchDiv.appendChild(searchBar);
-   searchDiv.appendChild(searchSubmit);
+const searchDiv = document.createElement('div');
+searchDiv.className = 'student-search';
+header.appendChild(searchDiv);
+const searchBar = document.createElement('input');
+searchBar.setAttribute('placeholder', 'Search for students...');
+searchBar.setAttribute('type', 'text');
+const searchSubmit = document.createElement('button');
+searchSubmit.textContent = "Search";
+searchDiv.appendChild(searchBar);
+searchDiv.appendChild(searchSubmit);
+
+//search function 
+const searchList = (searchInput, list) => {
+   console.log(searchInput.value);
+   console.log(list);
+   for (let i = 0; i < list.length; i++) {
+      if (searchInput.value.length !== 0 && studentNames[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())) {
+         list[i].style.display = "";
+      } else {
+         list[i].style.display = "none";
+      };
+   };
 };
 
-createSearchField();
+//search field event listeners
+searchSubmit.addEventListener('click', (event) => {
+   event.preventDefault();
+   searchList(searchBar, studentItems);
+   console.log('Submit button is functional.');
+});
+
+
+
 
 
