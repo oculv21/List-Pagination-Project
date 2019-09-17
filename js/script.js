@@ -82,29 +82,29 @@ const searchList = (searchInput, list) => {
       noResults = document.createElement('p');
       noResults.innerHTML = 'Sorry, there are no matches.';
       div.appendChild(noResults);
-   }; 
+   };
 };
 
 const clearSearch = () => {
    for (let k = 0; k < studentItems.length; k++) {
       studentItems[k].style.display = '';
    };
+   if (noResults) {
+      div.removeChild(noResults)
+   };
 };
 
 //search field event listeners
 searchSubmit.addEventListener('click', (event) => {
-   event.preventDefault();
-   clearSearch();
-   searchList(searchBar, studentItems);
-   div.removeChild(document.querySelector('.pagination'));
-   showPage(searchResults, 1);
-   appendPageLinks(searchResults);
+   if (searchBar.value == '') {
+      location.reload();
+   } else {
+      event.preventDefault();
+      clearSearch();
+      searchList(searchBar, studentItems);
+      div.removeChild(document.querySelector('.pagination'));
+      showPage(searchResults, 1);
+      appendPageLinks(searchResults);
+   }
 });
 
-searchSubmit.addEventListener('keyup', () => {
-   clearSearch();
-   searchList(searchBar, studentItems);
-   div.removeChild(document.querySelector('.pagination'));
-   showPage(searchResults, 1);
-   appendPageLinks(searchResults);
-});
